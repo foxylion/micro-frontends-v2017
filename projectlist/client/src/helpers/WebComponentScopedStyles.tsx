@@ -1,11 +1,11 @@
 import * as React from "react";
-import StyleSheet from "styled-components/lib/models/StyleSheet";
+import {StyleSheetManager} from "styled-components";
 
 interface State {
   styles: string;
 }
 
-class StylesWrapper extends React.Component<{}, State> {
+class WebComponentScopedStyles extends React.Component<{}, State> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -14,7 +14,8 @@ class StylesWrapper extends React.Component<{}, State> {
   }
 
   public componentDidMount() {
-    const updatedStyles = StyleSheet.instance.toHTML();
+    const stylesheet = new StyleSheet();
+    const updatedStyles = stylesheet.toHTML();
 
     if (this.state.styles !== updatedStyles) {
       this.setState({ styles: updatedStyles });
@@ -32,11 +33,13 @@ class StylesWrapper extends React.Component<{}, State> {
   public render() {
     return (
       <div>
+        <StyleSheetManager sheet={}>
         {this.props.children}
+        </StyleSheetManager>
         <div dangerouslySetInnerHTML={{ __html: this.state.styles }} />
       </div>
     );
   }
 }
 
-export default StylesWrapper;
+export default WebComponentScopedStyles;

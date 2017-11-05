@@ -1,35 +1,31 @@
 import axios from "axios";
 import * as React from "react";
-import { injectGlobal } from "styled-components";
-import Header from "./Header";
 
-import StylesWrapper from "./StylesWrapper";
+import WebComponentScopedStyles from "../helpers/WebComponentScopedStyles";
+import Header from "./Header";
 
 export interface Props {
   baseUrl: string;
 }
 
 interface State {
-  projects?: string;
+  report?: string;
 }
 
 class App extends React.Component<Props, State> {
-
-  private globalStyles: any;
-
   constructor(props: Props) {
     super(props);
     this.state = {
-      projects: undefined
+      report: undefined
     };
   }
 
   private loadData = () => {
     axios
-      .get(this.props.baseUrl + "/api/v1/projects")
+      .get(this.props.baseUrl + "/api/v1/report")
       .then(response => {
         this.setState({
-          projects: JSON.stringify(response.data)
+          report: JSON.stringify(response.data)
         });
       })
       .catch(error => {
@@ -37,30 +33,20 @@ class App extends React.Component<Props, State> {
       });
   };
 
-  public componentWillMount() {
-    this.globalStyles = injectGlobal`
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
-    `;
-  }
-
   public render() {
     return (
-      <StylesWrapper>
-        <div style={{ textAlign: "center" }}>
-          <Header />
+      <WebComponentScopedStyles>
+        <div style={{ textAlign: "center", fontFamily: "sans-serif" }}>
+          <Header baseUrl={this.props.baseUrl} />
           <button onClick={this.loadData}>Load Data</button>
           <p style={{ fontSize: "large" }}>Hello World!</p>
-          {this.state.projects !== undefined ? (
-            <p>Data Loaded: {this.state.projects}</p>
+          {this.state.report !== undefined ? (
+            <p>Data Loaded: {this.state.report}</p>
           ) : (
             <p>Loading data...</p>
           )}
         </div>
-      </StylesWrapper>
+      </WebComponentScopedStyles>
     );
   }
 }

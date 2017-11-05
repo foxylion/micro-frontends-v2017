@@ -4,18 +4,18 @@ import Logo from "./Logo";
 
 interface Props {
   className?: string;
+  baseUrl: string;
 }
 
 const Header: React.SFC<Props> = props => (
   <div className={props.className}>
-    <Logo />
-    <h2>Project List</h2>
+    <Logo baseUrl={props.baseUrl} />
+    <h2>Report Data View</h2>
   </div>
 );
 
 const StyledHeader = styled(Header)`
   background-color: #222;
-  height: 150px;
   padding: 20px;
   color: white;
 `;

@@ -12,9 +12,9 @@ import org.springframework.web.client.RestTemplate
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v1/reports")
+@RequestMapping("/api/v1/report")
 @CrossOrigin(maxAge = 3600)
-class ProjectsEndpoint(val config: Configuration) {
+class ReportEndpoint(val config: Configuration) {
 
     @GetMapping
     fun projects(): List<Slice> {

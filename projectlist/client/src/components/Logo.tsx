@@ -9,12 +9,15 @@ to { transform: rotate(360deg); }
 `;
 
 interface Props {
-    className?: string
+    className?: string;
+    baseUrl: string;
 }
 
-const Logo: React.SFC<Props> = (props) => (
-  <img src={logo} className={props.className} alt="logo" />
-);
+const Logo: React.SFC<Props> = props => {
+  const logoRelativePath = logo as string;
+  const logoUrl = props.baseUrl + logoRelativePath.substr(1);
+  return <img src={logoUrl} className={props.className} alt="logo" />;
+};
 
 const StyledLogo = styled(Logo)`
 animation: ${logoKeyFrames} infinite 20s linear;
