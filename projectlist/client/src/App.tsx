@@ -1,20 +1,66 @@
-import * as React from 'react';
-import './App.css';
+import axios from "axios";
+import * as React from "react";
+import { injectGlobal } from "styled-components";
+import Header from "./Header";
 
-const logo = require('./logo.svg');
+import StylesWrapper from "./StylesWrapper";
 
-class App extends React.Component {
-  render() {
+export interface Props {
+  baseUrl: string;
+}
+
+interface State {
+  projects?: string;
+}
+
+class App extends React.Component<Props, State> {
+
+  private globalStyles: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      projects: undefined
+    };
+  }
+
+  private loadData = () => {
+    axios
+      .get(this.props.baseUrl + "/api/v1/projects")
+      .then(response => {
+        this.setState({
+          projects: JSON.stringify(response.data)
+        });
+      })
+      .catch(error => {
+        window.alert("Error fetching and parsing data" + error);
+      });
+  };
+
+  public componentWillMount() {
+    this.globalStyles = injectGlobal`
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    `;
+  }
+
+  public render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <StylesWrapper>
+        <div style={{ textAlign: "center" }}>
+          <Header />
+          <button onClick={this.loadData}>Load Data</button>
+          <p style={{ fontSize: "large" }}>Hello World!</p>
+          {this.state.projects !== undefined ? (
+            <p>Data Loaded: {this.state.projects}</p>
+          ) : (
+            <p>Loading data...</p>
+          )}
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      </StylesWrapper>
     );
   }
 }
