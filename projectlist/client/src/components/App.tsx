@@ -35,7 +35,8 @@ class App extends React.Component<Props, State> {
 
   public render() {
     return (
-      <WebComponentScopedStyles>
+      <div>
+      <WebComponentScopedStyles />
         <div style={{ textAlign: "center", fontFamily: "sans-serif" }}>
           <Header baseUrl={this.props.baseUrl} />
           <button onClick={this.loadData}>Load Data</button>
@@ -46,7 +47,7 @@ class App extends React.Component<Props, State> {
             <p>Loading data...</p>
           )}
         </div>
-      </WebComponentScopedStyles>
+      </div>
     );
   }
 }

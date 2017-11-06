@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
 
+// tslint:disable-next-line:no-var-requires
 const logo = require("./logo.svg");
 
 const logoKeyFrames = keyframes`

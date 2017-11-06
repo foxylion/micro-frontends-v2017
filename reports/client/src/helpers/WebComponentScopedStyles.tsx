@@ -30,12 +30,7 @@ class WebComponentScopedStyles extends React.Component<{}, State> {
   }
 
   public render() {
-    return (
-      <div>
-        {this.props.children}
-        <div dangerouslySetInnerHTML={{ __html: this.state.styles }} />
-      </div>
-    );
+    return <div dangerouslySetInnerHTML={{ __html: this.state.styles }} />;
   }
 }
 
