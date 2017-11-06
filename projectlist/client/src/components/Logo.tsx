@@ -9,8 +9,8 @@ to { transform: rotate(360deg); }
 `;
 
 interface Props {
-    className?: string;
-    baseUrl: string;
+  className?: string;
+  baseUrl: string;
 }
 
 const Logo: React.SFC<Props> = props => {
@@ -20,8 +20,8 @@ const Logo: React.SFC<Props> = props => {
 };
 
 const StyledLogo = styled(Logo)`
-animation: ${logoKeyFrames} infinite 20s linear;
-height: 80px;
+  animation: ${logoKeyFrames} infinite 20s linear;
+  height: 80px;
 `;
 
 export default StyledLogo;
