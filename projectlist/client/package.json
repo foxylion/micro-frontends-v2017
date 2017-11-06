@@ -6,11 +6,11 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.17",
     "axios": "^0.17.0",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts-ts": "2.8.0",
-    "react-shadow-dom-retarget-events": "^1.0.7",
-    "styled-components": "^2.2.3"
+    "react-shadow-dom-retarget-events": "^1.0.7"
   },
   "scripts": {
     "start": "PORT=8181 react-scripts-ts start",

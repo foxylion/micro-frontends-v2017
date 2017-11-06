@@ -1,5 +1,5 @@
 import * as React from "react";
-import {StyleSheetManager} from "styled-components";
+import StyleSheet from "styled-components/lib/models/StyleSheet";
 
 interface State {
   styles: string;
@@ -14,8 +14,7 @@ class WebComponentScopedStyles extends React.Component<{}, State> {
   }
 
   public componentDidMount() {
-    const stylesheet = new StyleSheet();
-    const updatedStyles = stylesheet.toHTML();
+    const updatedStyles = StyleSheet.instance.toHTML();
 
     if (this.state.styles !== updatedStyles) {
       this.setState({ styles: updatedStyles });
@@ -33,9 +32,7 @@ class WebComponentScopedStyles extends React.Component<{}, State> {
   public render() {
     return (
       <div>
-        <StyleSheetManager sheet={}>
         {this.props.children}
-        </StyleSheetManager>
         <div dangerouslySetInnerHTML={{ __html: this.state.styles }} />
       </div>
     );

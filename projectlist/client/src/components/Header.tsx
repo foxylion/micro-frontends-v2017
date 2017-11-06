@@ -1,5 +1,6 @@
 import * as React from "react";
-import styled from "styled-components";
+
+import { mountStyle } from "../helpers/mountStyles";
 import Logo from "./Logo";
 
 interface Props {
@@ -14,11 +15,11 @@ const Header: React.SFC<Props> = props => (
   </div>
 );
 
-const StyledHeader = styled(Header)`
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-`;
+const styles = {
+  backgroundColor: "#222",
+  color: "white",
+  height: "150px",
+  padding: "20px"
+};
 
-export default StyledHeader;
+export default mountStyle(styles, Header);
