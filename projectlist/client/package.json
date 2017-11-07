@@ -6,10 +6,12 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.17",
     "axios": "^0.17.0",
+    "bootstrap": "^4.0.0-beta.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts-ts": "2.8.0",
     "react-shadow-dom-retarget-events": "^1.0.7",
+    "roboto-fontface": "^0.8.0",
     "styled-components": "^2.2.3"
   },
   "scripts": {

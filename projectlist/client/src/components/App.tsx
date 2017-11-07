@@ -1,11 +1,12 @@
 import axios from "axios";
 import * as React from "react";
 
-import WebComponentScopedStyles from "../helpers/WebComponentScopedStyles";
+import StyledComponentsScopedStyles from "../helpers/StyledComponentsScopedStyles";
 import Header from "./Header";
 
 export interface Props {
-  baseUrl: string;
+  uiBaseUrl?: string;
+  backendBaseUrl?: string;
 }
 
 interface State {
@@ -22,7 +23,7 @@ class App extends React.Component<Props, State> {
 
   private loadData = () => {
     axios
-      .get(this.props.baseUrl + "/api/v1/projects")
+      .get(this.getBackendBaseUrl() + "/api/v1/projects")
       .then(response => {
         this.setState({
           projects: JSON.stringify(response.data)
@@ -33,12 +34,28 @@ class App extends React.Component<Props, State> {
       });
   };
 
+  private getUiBaseUrl: () => string = () => {
+    if (this.props.uiBaseUrl === undefined) {
+      return ".";
+    } else {
+      return this.props.uiBaseUrl;
+    }
+  };
+
+  private getBackendBaseUrl: () => string = () => {
+    if (this.props.backendBaseUrl === undefined) {
+      return ".";
+    } else {
+      return this.props.backendBaseUrl;
+    }
+  };
+
   public render() {
     return (
       <div>
-      <WebComponentScopedStyles />
+        <StyledComponentsScopedStyles />
         <div style={{ textAlign: "center", fontFamily: "sans-serif" }}>
-          <Header baseUrl={this.props.baseUrl} />
+          <Header uiBaseUrl={this.getUiBaseUrl()} />
           <button onClick={this.loadData}>Load Data</button>
           <p style={{ fontSize: "large" }}>Hello World!</p>
           {this.state.projects !== undefined ? (

@@ -5,7 +5,8 @@ interface State {
   styles: string;
 }
 
-class WebComponentScopedStyles extends React.Component<{}, State> {
+// This class copes the style definitions of styled-components into the Shadow DOM
+class StyledComponentsScopedStyles extends React.Component<{}, State> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -34,4 +35,4 @@ class WebComponentScopedStyles extends React.Component<{}, State> {
   }
 }
 
-export default WebComponentScopedStyles;
+export default StyledComponentsScopedStyles;

@@ -1,9 +1,15 @@
-import ProjectsWebComponent from "./webcomponents/ProjectsWebComponent";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import ReportWebComponent from "./webcomponents/ReportWebComponent";
 
-window.customElements.define("app-report", ProjectsWebComponent);
+import App from "./components/App";
+import "./index.css";
+
+window.customElements.define("app-report", ReportWebComponent);
 
 if (process.env.NODE_ENV === "development") {
-  const app = document.createElement("app-report");
-  app.setAttribute("baseUrl", "http://127.0.0.1:8082");
-  document.getElementById("root")!.appendChild(app);
+  ReactDOM.render(
+    <App backendBaseUrl="http://127.0.0.1:8081/" />,
+    document.getElementById("root")
+  );
 }

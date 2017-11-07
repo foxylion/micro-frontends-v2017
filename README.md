@@ -117,22 +117,20 @@ The biggest problem is that by default React will not receive any events trigger
 
 All in all the workaround does fix the problem but there is no native support by React.
 
-### create-react-app compatibility with Shadow DOM
-
-The create-react-app doesn't handle the CSS import feature very well when using the App inside a Shadow DOM.
-
-By default the generated javascript file will attach all imported styled in the `<head>` tag of the page. This will attach the styles globally and pollute the stylesheet of the parent document. But even worse is that the App inside the Shadow DOM also won't be able to use the styles. [They must be explicitly defined inside the Shadow DOM.](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM#Styling_Shadow_DOM)
-
-There is also a fix for this. But it changes the way you import CSS stylesheets in your modules.
-
-- See https://github.com/Wildhoney/ReactShadow for more.
-- And the incompatibility with React 16: https://github.com/Wildhoney/ReactShadow/issues/36
-
 ### Styling libraries compatibility with Shadow DOM
 
-Almost all styling libraries do have major issues working inside a Shadow DOM, don't have good typescript integration or do miss broad adoption. Some libraries plan to support Shadow DOM but none of them has a production ready implementation as of 2017-11-06.
+Almost all advanced styling libraries do have major issues working inside a Shadow DOM, don't have good typescript integration or do miss broad adoption. Some libraries plan to support Shadow DOM but none of them has a production ready implementation as of 2017-11-06.
+
+#### [CSS modules](https://github.com/css-modules/css-modules)
+
+_This approach was used in the reports service._
+
+Styling works good with css modules. This will generate a single css file which can later be imported inside the ShadowDOM.
 
 #### [styled-components](https://www.styled-components.com/)
+
+_This approach was used in the projectlist service._
+
 - [-] Missing ShadowDOM support
 -- https://github.com/styled-components/styled-components/issues/659
 -- https://github.com/styled-components/styled-components/pull/1102
@@ -140,11 +138,13 @@ Almost all styling libraries do have major issues working inside a Shadow DOM, d
 -- https://github.com/styled-components/styled-components/issues/1032
 
 #### [jss](http://cssinjs.org/)
+
 - [-] Missing typescript support: https://github.com/cssinjs/react-jss/issues/151
 - [+] Does support the Shadow DOM mounting using `insertionPoint`: http://cssinjs.org/js-api?v=v9.2.0#setup-jss-instance
--- [+] React-JSS does also support this: http://cssinjs.org/react-jss?v=v7.2.0#custom-setup
+- [+] React-JSS does also support Shadow DOM mounting: http://cssinjs.org/react-jss?v=v7.2.0#custom-setup
 - [+] JSS is used by [material-ui](https://github.com/callemall/material-ui)
 
 #### [typestyle](https://typestyle.github.io/#/)
+
 - [-] Very difficult to use when requiring multiple instances
 - [-] CSS animations are difficult to use

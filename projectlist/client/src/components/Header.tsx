@@ -4,12 +4,12 @@ import Logo from "./Logo";
 
 interface Props {
   className?: string;
-  baseUrl: string;
+  uiBaseUrl: string;
 }
 
 const Header: React.SFC<Props> = props => (
   <div className={props.className}>
-    <Logo baseUrl={props.baseUrl} />
+    <Logo uiBaseUrl={props.uiBaseUrl} />
     <h2>Project List</h2>
   </div>
 );

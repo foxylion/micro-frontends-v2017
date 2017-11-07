@@ -12,12 +12,20 @@ class ProjectsWebComponent extends HTMLElement {
 
     const shadow = this.attachShadow({ mode: "open" });
     this.mountPoint = document.createElement("div");
+    this.mountPoint.className = "body";
     shadow.appendChild(this.mountPoint);
     retargetEvents(this.mountPoint);
   }
 
   public connectedCallback() {
-    ReactDOM.render(<App baseUrl={this.getBaseUrl()} />, this.mountPoint);
+    const stylePath = this.getBaseUrl() + "/static/css/main.css";
+    ReactDOM.render(
+      <div>
+        <style type="text/css">@import "{stylePath}";</style>
+        <App backendBaseUrl={this.getBaseUrl()} uiBaseUrl={this.getBaseUrl()} />
+      </div>,
+      this.mountPoint
+    );
   }
 
   private getBaseUrl(): string {

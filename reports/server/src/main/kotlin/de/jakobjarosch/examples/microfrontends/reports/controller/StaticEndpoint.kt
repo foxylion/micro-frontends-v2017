@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse
 import kotlin.streams.toList
 
 @RestController
-@RequestMapping("/static/js/main.js")
 class StaticEndpoint {
 
     @GetMapping
-    fun projects(response: HttpServletResponse): String {
+    @RequestMapping("/static/js/main.js")
+    fun js(response: HttpServletResponse): String {
         return try {
             val files = Files.list(Paths.get("static/static/js/")).toList()
             val jsFile = files.first { it.toString().endsWith(".js") }
@@ -22,6 +22,20 @@ class StaticEndpoint {
         } catch (e: java.nio.file.NoSuchFileException) {
             response.status = 404
             "Failed to resolve the js file"
+        }
+    }
+
+    @GetMapping
+    @RequestMapping("/static/css/main.css")
+    fun css(response: HttpServletResponse): String {
+        return try {
+            val files = Files.list(Paths.get("static/static/css/")).toList()
+            val jsFile = files.first { it.toString().endsWith(".css") }
+            response.sendRedirect(jsFile.fileName.toString())
+            ""
+        } catch (e: java.nio.file.NoSuchFileException) {
+            response.status = 404
+            "Failed to resolve the css file"
         }
     }
 }

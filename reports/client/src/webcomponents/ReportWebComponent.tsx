@@ -4,7 +4,7 @@ import retargetEvents from "react-shadow-dom-retarget-events";
 
 import App from "../components/App";
 
-class ProjectsWebComponent extends HTMLElement {
+class ReportWebComponent extends HTMLElement {
   private mountPoint: HTMLElement;
 
   constructor() {
@@ -12,19 +12,27 @@ class ProjectsWebComponent extends HTMLElement {
 
     const shadow = this.attachShadow({ mode: "open" });
     this.mountPoint = document.createElement("div");
+    this.mountPoint.className = "body";
     shadow.appendChild(this.mountPoint);
     retargetEvents(this.mountPoint);
   }
 
   public connectedCallback() {
-    ReactDOM.render(<App baseUrl={this.getBaseUrl()} />, this.mountPoint);
+    const stylePath = this.getBaseUrl() + "/static/css/main.css";
+    ReactDOM.render(
+      <div>
+        <style type="text/css">@import "{stylePath}";</style>
+        <App backendBaseUrl={this.getBaseUrl()} uiBaseUrl={this.getBaseUrl()} />
+      </div>,
+      this.mountPoint
+    );
   }
 
   private getBaseUrl(): string {
     const baseUrl = this.getAttribute("baseUrl");
     if (baseUrl === undefined) {
       throw new Error(
-        "Can't instantiate ProjectsApp without baseUrl parameter."
+        "Can't instantiate ReportsApp without baseUrl parameter."
       );
     } else {
       return baseUrl!;
@@ -32,4 +40,4 @@ class ProjectsWebComponent extends HTMLElement {
   }
 }
 
-export default ProjectsWebComponent;
+export default ReportWebComponent;

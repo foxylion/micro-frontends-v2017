@@ -11,12 +11,12 @@ to { transform: rotate(360deg); }
 
 interface Props {
   className?: string;
-  baseUrl: string;
+  uiBaseUrl: string;
 }
 
 const Logo: React.SFC<Props> = props => {
   const logoRelativePath = logo as string;
-  const logoUrl = props.baseUrl + logoRelativePath.substr(1);
+  const logoUrl = props.uiBaseUrl + logoRelativePath.substr(1);
   return <img src={logoUrl} className={props.className} alt="logo" />;
 };
 
